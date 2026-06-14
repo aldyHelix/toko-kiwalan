@@ -1,0 +1,6 @@
+public
+vendor
+node_modules
+storage
+bootstrap/ssr
+*.blade.php
