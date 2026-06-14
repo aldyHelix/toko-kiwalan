@@ -12,10 +12,18 @@ it('renders the admin login page', function () {
     $this->get('/admin/login')->assertOk();
 });
 
-it('authenticates an admin into the panel', function () {
-    $admin = Admin::factory()->create();
+it('authenticates an admin with a role into the panel', function () {
+    $admin = Admin::factory()->admin()->create();
 
     $this->actingAs($admin, 'admin')
         ->get('/admin')
         ->assertOk();
+});
+
+it('denies panel access to an admin without any role', function () {
+    $admin = Admin::factory()->create();
+
+    $this->actingAs($admin, 'admin')
+        ->get('/admin')
+        ->assertForbidden();
 });

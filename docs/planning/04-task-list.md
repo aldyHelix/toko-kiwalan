@@ -52,19 +52,19 @@
 **Tujuan:** fondasi lintas-modul: Value Object uang/identitas, base contract repo & DTO, typed settings, dan autentikasi+otorisasi dua guard.
 
 ### Shared
-- [ ] **Value Objects immutable**: `Money` (bungkus `moneyphp/money`, integer minor unit, currency eksplisit), `Sku`, `Slug`. Unit test aritmetika & equality.
-- [ ] **Base contracts**: `Repository` interface dasar (findAll/findById/create/update/delete) + base **DTO** (`spatie/laravel-data`, `readonly`).
-- [ ] Helper tipis di `app/Support` (hindari logika bisnis).
+- [x] **Value Objects immutable**: `Money` (bungkus `moneyphp/money`, integer minor unit, currency eksplisit), `Sku`, `Slug`. Unit test aritmetika & equality.
+- [x] **Base contracts**: `Repository` interface dasar (findAll/findById/create/update/delete) + base **DTO** (`spatie/laravel-data`, `readonly`).
+- [x] Helper tipis di `app/Support` (hindari logika bisnis) — `App\Support\Rupiah`.
 
 ### Settings
-- [ ] Typed settings groups via `spatie/laravel-settings`: **General** (nama toko, kontak, currency, pajak), **Seo**, **Theme**, **Payment**. Di-cache.
-- [ ] Filament **Pages**: GlobalSettings, SeoSettings, PaymentSettings (form ter-tipe).
+- [x] Typed settings groups via `spatie/laravel-settings`: **General** (nama toko, kontak, currency, pajak), **Seo**, **Theme**, **Payment**. Di-cache (`SETTINGS_CACHE_ENABLED`).
+- [x] Filament **Pages**: GlobalSettings, SeoSettings, PaymentSettings (form ter-tipe), didaftarkan via `SettingsPlugin` (pola plugin per-modul).
 
 ### Auth & RBAC
-- [ ] Guard **`web`** (customer) & **`admin`** terpisah; model `User` (+ pemisahan admin bila perlu).
-- [ ] `spatie/laravel-permission`: role **super-admin, admin, branch-manager** + permission map.
-- [ ] Auth storefront (register/login customer) & login panel admin.
-- [ ] Skeleton **branch-scoping** (policy/global scope) — disempurnakan di Fase 2.
+- [x] Guard **`web`** (customer) & **`admin`** terpisah; model `User` + `Admin` (pemisahan credential store).
+- [x] `spatie/laravel-permission`: role **super-admin, admin, branch-manager** + permission map (`App\Support\Rbac`, guard `admin`); super-admin via `Gate::before`.
+- [x] Auth storefront (register/login/logout customer, hand-rolled) & login panel admin (Filament, gated by role).
+- [x] Skeleton **branch-scoping**: pure `BranchAccessPolicy` (decision logic). Eloquent global scope/policy disempurnakan di Fase 2.
 
 **AC:**
 1. `Money` menolak operasi beda currency; tidak ada float untuk uang (unit test bukti).

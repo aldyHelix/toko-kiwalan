@@ -1,0 +1,116 @@
+<?php
+
+declare(strict_types=1);
+
+use App\Modules\Settings\Domain\Settings\GeneralSettings;
+use App\Modules\Settings\Domain\Settings\PaymentSettings;
+use App\Modules\Settings\Domain\Settings\SeoSettings;
+use App\Modules\Settings\Domain\Settings\ThemeSettings;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelSettings\SettingsCasts\DataCast;
+use Spatie\LaravelSettings\SettingsCasts\DateTimeInterfaceCast;
+use Spatie\LaravelSettings\SettingsCasts\DateTimeZoneCast;
+use Spatie\LaravelSettings\SettingsRepositories\DatabaseSettingsRepository;
+use Spatie\LaravelSettings\SettingsRepositories\RedisSettingsRepository;
+
+return [
+
+    /*
+     * Each settings class used in your application must be registered, you can
+     * put them (manually) here. The Settings module owns these typed groups
+     * (see docs/planning/01-architecture.md §5 — Settings is cross-cutting config).
+     */
+    'settings' => [
+        GeneralSettings::class,
+        SeoSettings::class,
+        ThemeSettings::class,
+        PaymentSettings::class,
+    ],
+
+    /*
+     * The path where the settings classes will be created.
+     */
+    'setting_class_path' => app_path('Modules/Settings/Domain/Settings'),
+
+    /*
+     * In these directories settings migrations will be stored and ran when migrating. A settings
+     * migration created via the make:settings-migration command will be stored in the first path or
+     * a custom defined path when running the command.
+     */
+    'migrations_paths' => [
+        app_path('Modules/Settings/Database/Settings'),
+    ],
+
+    /*
+     * When no repository was set for a settings class the following repository
+     * will be used for loading and saving settings.
+     */
+    'default_repository' => 'database',
+
+    /*
+     * Settings will be stored and loaded from these repositories.
+     */
+    'repositories' => [
+        'database' => [
+            'type' => DatabaseSettingsRepository::class,
+            'model' => null,
+            'table' => null,
+            'connection' => null,
+        ],
+        'redis' => [
+            'type' => RedisSettingsRepository::class,
+            'connection' => null,
+            'prefix' => null,
+        ],
+    ],
+
+    /*
+     * The encoder and decoder will determine how settings are stored and
+     * retrieved in the database. By default, `json_encode` and `json_decode`
+     * are used.
+     */
+    'encoder' => null,
+    'decoder' => null,
+
+    /*
+     * The contents of settings classes can be cached through your application,
+     * settings will be stored within a provided Laravel store and can have an
+     * additional prefix.
+     */
+    'cache' => [
+        'enabled' => (bool) env('SETTINGS_CACHE_ENABLED', true),
+        'store' => null,
+        'prefix' => null,
+        'ttl' => null,
+
+        /*
+         * When enabled, uses Laravel's memoized cache driver (requires Laravel 12.9+)
+         * to keep resolved values in memory during a single request.
+         */
+        'memo' => env('SETTINGS_CACHE_MEMO', false),
+    ],
+
+    /*
+     * These global casts will be automatically used whenever a property within
+     * your settings class isn't a default PHP type.
+     */
+    'global_casts' => [
+        DateTimeInterface::class => DateTimeInterfaceCast::class,
+        DateTimeZone::class => DateTimeZoneCast::class,
+        //        Spatie\DataTransferObject\DataTransferObject::class => Spatie\LaravelSettings\SettingsCasts\DtoCast::class,
+        Data::class => DataCast::class,
+    ],
+
+    /*
+     * The package will look for settings in these paths and automatically
+     * register them. We register the Settings module's groups explicitly
+     * above, so auto-discovery is disabled.
+     */
+    'auto_discover_settings' => [],
+
+    /*
+     * Automatically discovered settings classes can be cached, so they don't
+     * need to be searched each time the application boots up.
+     */
+    'discovered_settings_cache_path' => base_path('bootstrap/cache'),
+];
