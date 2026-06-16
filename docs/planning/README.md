@@ -30,6 +30,7 @@ Boilerplate e-commerce **Laravel 12** dengan fitur unggulan **3D product viewer 
 - [x] Brainstorming & keputusan arsitektur
 - [x] Planning docs (dokumen ini)
 - [x] Fase 0 — Scaffold (Laravel 12 · Inertia 2/Vue 3/TS/Tailwind 4 · Filament v5 · modul autoloading · gate hijau)
-- [ ] Fase 1–8 — lihat [04-task-list.md](./04-task-list.md)
+- [x] Fase 1 — Shared (Money/Sku/Slug · base Repository/DTO) · Settings (4 typed groups + Filament pages) · Auth & RBAC (dua guard, spatie/permission, customer auth, branch-scope skeleton)
+- [ ] Fase 2–8 — lihat [04-task-list.md](./04-task-list.md)
 
 > **Catatan:** Database seeder & demo data **di-defer** ke Fase 8 (lihat task list). Skema & factory disiapkan lebih dulu; seeder konten contoh dikerjakan belakangan atas permintaan.

@@ -69,9 +69,9 @@ jobs:
         run: composer stan
 
       - name: Pest (tests + coverage)
-        # The ≥80% threshold (--min=80) is enabled from Fase 1 onward, once the
-        # first business logic lands; Fase 0 scaffold reports coverage only.
-        run: php artisan test --coverage
+        # The ≥80% threshold is enforced from Fase 1 onward, now that the first
+        # business logic (Shared/Settings/Auth) has landed.
+        run: php artisan test --coverage --min=80
 
   frontend:
     name: Frontend — type-check, lint, build
