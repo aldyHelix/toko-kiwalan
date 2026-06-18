@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Modules\Shared\Domain\Access\BranchAccessPolicy;
 use App\Support\Rbac;
 use Database\Factories\AdminFactory;
 use Filament\Models\Contracts\FilamentUser;
@@ -19,6 +20,8 @@ use Spatie\Permission\Traits\HasRoles;
  * Kept separate from the customer {@see User} model so storefront and admin
  * authentication use distinct guards and credential stores (architecture §4).
  * RBAC roles/permissions are scoped to the `admin` guard (see {@see Rbac}).
+ *
+ * @property int|null $branch_id assigned branch for branch-scoped staff; null = unscoped
  */
 class Admin extends Authenticatable implements FilamentUser
 {
@@ -40,6 +43,7 @@ class Admin extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
+        'branch_id',
     ];
 
     /**
@@ -59,6 +63,27 @@ class Admin extends Authenticatable implements FilamentUser
     }
 
     /**
+     * The branch this admin is scoped to, or null for unscoped staff. Consumed
+     * by {@see BranchAccessPolicy} via the
+     * Branch module's policy and global scope.
+     */
+    public function branchId(): ?int
+    {
+        return $this->branch_id;
+    }
+
+    /**
+     * Role names on the admin guard, as a plain array for the branch-access
+     * decision logic.
+     *
+     * @return array<int, string>
+     */
+    public function roleNames(): array
+    {
+        return $this->getRoleNames()->all();
+    }
+
+    /**
      * @return array<string, string>
      */
     protected function casts(): array
@@ -66,6 +91,7 @@ class Admin extends Authenticatable implements FilamentUser
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'branch_id' => 'integer',
         ];
     }
 }
