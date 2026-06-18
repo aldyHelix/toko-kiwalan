@@ -78,12 +78,12 @@
 
 **Tujuan:** satu toko, banyak lokasi; fondasi resolusi per-cabang & RBAC branch-manager.
 
-- [ ] Migration + model **`branches`** (name, code unique, address, is_active).
-- [ ] `BranchRepository` contract + `EloquentBranchRepository`; binding di provider.
-- [ ] Actions: `CreateBranch`, `UpdateBranch`, `ToggleBranchActive` (TDD).
-- [ ] Filament **BranchResource** (CRUD).
-- [ ] Storefront: **pilih/deteksi branch** aktif (`POST /branch/select`), simpan di session; expose ke Inertia shared props.
-- [ ] **RBAC branch-scope**: branch-manager hanya akses data cabangnya (policy + scope), super-admin/admin lihat semua.
+- [x] Migration + model **`branches`** (name, code unique, address, is_active).
+- [x] `BranchRepository` contract + `EloquentBranchRepository`; binding di provider.
+- [x] Actions: `CreateBranch`, `UpdateBranch`, `ToggleBranchActive` (TDD).
+- [x] Filament **BranchResource** (CRUD) — create/update delegasi ke Action, table action toggle aktif.
+- [x] Storefront: **pilih/deteksi branch** aktif (`POST /branch/select`), simpan di session; expose ke Inertia shared props (`branch.active`/`branch.available`) + `BranchSwitcher.vue`.
+- [x] **RBAC branch-scope**: branch-manager hanya akses data cabangnya (`BranchPolicy` + `BranchScope` global scope, kolom dikonfigurasi agar reusable), super-admin/admin lihat semua. `admins.branch_id` + `Admin::branchId()/roleNames()`.
 
 **AC:**
 1. Admin CRUD branch via Filament; `code` unik tervalidasi.

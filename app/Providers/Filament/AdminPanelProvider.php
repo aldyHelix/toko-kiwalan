@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
+use App\Modules\Branch\Presentation\Filament\BranchPlugin;
 use App\Modules\Settings\Presentation\Filament\SettingsPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -48,6 +49,7 @@ class AdminPanelProvider extends PanelProvider
             // Modules contribute admin UI via their own Filament plugins.
             ->plugins([
                 SettingsPlugin::make(),
+                BranchPlugin::make(),
             ])
             ->middleware([
                 EncryptCookies::class,

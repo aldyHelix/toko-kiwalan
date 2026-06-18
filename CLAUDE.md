@@ -8,7 +8,7 @@ File ini memberikan panduan kepada Claude Code (claude.ai/code) saat bekerja den
 
 Proyek dibangun bertahap (Fase 0–8). Dokumen perencanaan di `docs/planning/` (ditulis dalam Bahasa Indonesia) adalah _source of truth_ untuk scope, peta modul, dan acceptance criteria per fase — baca `01-architecture.md` dan `04-task-list.md` sebelum mulai mengerjakan fitur, untuk tahu fase mana sebuah perubahan termasuk.
 
-> Kondisi saat ini: **Fase 0 (scaffold)**. Baru modul `Shared` yang ada (sebagai template referensi). Modul bounded-context lain (Catalog, Ordering, Payment, dst.) dan sebagian besar paket `spatie/*` yang tercantum di `03-tech-stack.md` masih direncanakan, belum terinstall — tambahkan per-fase saat mengimplementasikannya.
+> Kondisi saat ini: **Fase 2 selesai**. Modul yang sudah ada: `Shared` (template referensi + Value Objects/contracts), `Settings`, `Branch`. Modul bounded-context lain (Catalog, Ordering, Payment, dst.) dan sebagian besar paket `spatie/*` yang tercantum di `03-tech-stack.md` masih direncanakan, belum terinstall — tambahkan per-fase saat mengimplementasikannya.
 
 ## Perintah
 
